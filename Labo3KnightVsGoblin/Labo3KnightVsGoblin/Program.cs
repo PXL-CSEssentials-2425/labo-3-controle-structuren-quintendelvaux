@@ -18,16 +18,24 @@ int goblinHealth = 0;
 int gCountholder = 0;
 int kCountholder = 0;
 int hCountholder = 0;
+bool endGame = false;
+Console.ForegroundColor = ConsoleColor.Blue;
 Console.WriteLine($"chose health: c \nrandomize health: r");
- string healthChoiseControl = Console.ReadLine();
+Console.ResetColor();
+string healthChoiseControl = Console.ReadLine();
+
 
 //healthControll
 switch (healthChoiseControl)
 {
     case "c":
+        Console.ForegroundColor = ConsoleColor.Blue;
         Console.Write("Health knight: ");
+        Console.ResetColor();
         knightHealth = int.Parse(Console.ReadLine());
+        Console.ForegroundColor = ConsoleColor.Blue;
         Console.Write("Health goblin: ");
+        Console.ResetColor();
         goblinHealth = int.Parse(Console.ReadLine());
         break;
     case "r":
@@ -39,16 +47,24 @@ switch (healthChoiseControl)
 
         break;
 }
-if ((healthChoiseControl != "c") && (healthChoiseControl != "r"))
+while ((healthChoiseControl != "c") && (healthChoiseControl != "r"))
 {
-    Console.WriteLine($"chose health = c \nrandomize health = r");
+
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.WriteLine($"chose health: c \nrandomize health: r");
+    Console.ResetColor();
     healthChoiseControl = Console.ReadLine();
+
     switch (healthChoiseControl)
     {
         case "c":
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Health knight: ");
+            Console.ResetColor();
             knightHealth = int.Parse(Console.ReadLine());
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.Write("Health goblin: ");
+            Console.ResetColor();
             goblinHealth = int.Parse(Console.ReadLine());
             break;
         case "r":
@@ -60,8 +76,7 @@ if ((healthChoiseControl != "c") && (healthChoiseControl != "r"))
 
             break;
     }
-
-} while (healthChoiseControl != "c" && (healthChoiseControl != "r"))
+}
     //healthControll^^
 
 
@@ -75,60 +90,77 @@ Console.ResetColor();
 Console.WriteLine();
 
 
+Console.ForegroundColor = ConsoleColor.Yellow;
 Console.WriteLine($"Knight health {knightHealth}");
 Console.WriteLine($"Goblin health {goblinHealth}");
+Console.ResetColor();
 Console.WriteLine();
-Console.WriteLine("Attack: a");
-Console.WriteLine("Heal: h");
-Console.Write("Please select an action: ");
-string action = Console.ReadLine();
 
-
-switch (action)
+while (endGame == false)
 {
-    case "a":
-        kCountholder = attackDmg.Next(1, 10);
-        goblinHealth -= kCountholder;
-        Console.WriteLine($"Your attack did {kCountholder} damage.");
-        gCountholder = attackDmg.Next(1, 10);
-        knightHealth -= gCountholder;
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"Enemy attack did {gCountholder} damage.");
-        Console.ResetColor();
-        break;
-    case "h":
-        hCountholder = healing.Next(1, 5);
-        knightHealth -= hCountholder;
-        Console.WriteLine($"you have healed {hCountholder} health");
-        gCountholder = attackDmg.Next(1, 10);
-        knightHealth -= gCountholder;
-        Console.ForegroundColor = ConsoleColor.Red;
-        Console.WriteLine($"Enemy attack did {gCountholder} damage.");
-        Console.ResetColor();
-        break;
-    default:
 
-        break;
+
+    Console.ForegroundColor = ConsoleColor.Blue;
+    Console.WriteLine("Attack: a");
+    Console.WriteLine("Heal: h");
+    Console.Write("Please select an action: ");
+    Console.ResetColor();
+    string action = Console.ReadLine();
+
+
+    switch (action)
+    {
+        case "a":
+            kCountholder = attackDmg.Next(1, 10);
+            goblinHealth -= kCountholder;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"Your attack did {kCountholder} damage.");
+            Console.ResetColor();
+            gCountholder = attackDmg.Next(1, 10);
+            knightHealth -= gCountholder;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Enemy attack did {gCountholder} damage.");
+            Console.ResetColor();
+            break;
+        case "h":
+            hCountholder = healing.Next(1, 5);
+            knightHealth += hCountholder;
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"you have healed {hCountholder} health");
+            Console.ResetColor();
+            gCountholder = attackDmg.Next(1, 10);
+            knightHealth -= gCountholder;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Enemy attack did {gCountholder} damage.");
+            Console.ResetColor();
+            break;
+        default:
+
+            break;
+    }
+    Console.ForegroundColor = ConsoleColor.Yellow;
+    Console.WriteLine($"Knight health {knightHealth}");
+    Console.WriteLine($"Goblin health {goblinHealth}");
+    Console.ResetColor();
+    Console.WriteLine();
+
+
+    if (knightHealth <= 0)
+    {
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("you have been slayed!");
+        Console.ResetColor();
+        endGame = true;
+    }
+    if (goblinHealth <= 0)
+    {
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
+        Console.WriteLine("goblin has been slayed!");
+        Console.ResetColor();
+        endGame = true;
+    }
+
 }
-Console.WriteLine($"Knight health {knightHealth}");
-Console.WriteLine($"Goblin health {goblinHealth}");
-
-//if (knightHealth <= 0)
-//{
-//    Console.ForegroundColor = ConsoleColor.Red;
-//    Console.WriteLine("Game over!");
-//    Console.ResetColor();
-//}
-//if (goblinHealth <= 0)
-//{
-//    Console.WriteLine("goblin has been slayed!");
-//}
-
-
-//if (knightHealth > 0)
-//{
-//    Console.WriteLine($"Knight health {knightHealth}");
-//}
 /* 
  * Deel 2
  * 
