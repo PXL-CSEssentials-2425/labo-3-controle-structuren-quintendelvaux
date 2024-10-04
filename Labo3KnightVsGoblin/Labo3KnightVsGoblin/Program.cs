@@ -9,7 +9,126 @@
  *  - Doe hetzelfde voor de goblin.
  *  - Extra: gebruik de Random klasse om de levenspuntenvan de ridder en goblin in te stellen.
  */
+using System.Security.Cryptography;
+Random randomNumberGenerator = new Random();
+Random healing = new Random();
+Random attackDmg = new Random();
+int knightHealth = 0;
+int goblinHealth = 0;
+int gCountholder = 0;
+int kCountholder = 0;
+int hCountholder = 0;
+Console.WriteLine($"chose health: c \nrandomize health: r");
+ string healthChoiseControl = Console.ReadLine();
 
+//healthControll
+switch (healthChoiseControl)
+{
+    case "c":
+        Console.Write("Health knight: ");
+        knightHealth = int.Parse(Console.ReadLine());
+        Console.Write("Health goblin: ");
+        goblinHealth = int.Parse(Console.ReadLine());
+        break;
+    case "r":
+        knightHealth = (randomNumberGenerator.Next(1, 101));
+        goblinHealth = randomNumberGenerator.Next(1, 101);
+
+        break;
+    default:
+
+        break;
+}
+if ((healthChoiseControl != "c") && (healthChoiseControl != "r"))
+{
+    Console.WriteLine($"chose health = c \nrandomize health = r");
+    healthChoiseControl = Console.ReadLine();
+    switch (healthChoiseControl)
+    {
+        case "c":
+            Console.Write("Health knight: ");
+            knightHealth = int.Parse(Console.ReadLine());
+            Console.Write("Health goblin: ");
+            goblinHealth = int.Parse(Console.ReadLine());
+            break;
+        case "r":
+            knightHealth = (randomNumberGenerator.Next(1, 101));
+            goblinHealth = randomNumberGenerator.Next(1, 101);
+
+            break;
+        default:
+
+            break;
+    }
+
+} while (healthChoiseControl != "c" && (healthChoiseControl != "r"))
+    //healthControll^^
+
+
+
+
+    //start
+    Console.WriteLine();
+Console.ForegroundColor = ConsoleColor.DarkGreen;
+Console.WriteLine($"Game has started!");
+Console.ResetColor();
+Console.WriteLine();
+
+
+Console.WriteLine($"Knight health {knightHealth}");
+Console.WriteLine($"Goblin health {goblinHealth}");
+Console.WriteLine();
+Console.WriteLine("Attack: a");
+Console.WriteLine("Heal: h");
+Console.Write("Please select an action: ");
+string action = Console.ReadLine();
+
+
+switch (action)
+{
+    case "a":
+        kCountholder = attackDmg.Next(1, 10);
+        goblinHealth -= kCountholder;
+        Console.WriteLine($"Your attack did {kCountholder} damage.");
+        gCountholder = attackDmg.Next(1, 10);
+        knightHealth -= gCountholder;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"Enemy attack did {gCountholder} damage.");
+        Console.ResetColor();
+        break;
+    case "h":
+        hCountholder = healing.Next(1, 5);
+        knightHealth -= hCountholder;
+        Console.WriteLine($"you have healed {hCountholder} health");
+        gCountholder = attackDmg.Next(1, 10);
+        knightHealth -= gCountholder;
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine($"Enemy attack did {gCountholder} damage.");
+        Console.ResetColor();
+        break;
+    default:
+
+        break;
+}
+Console.WriteLine($"Knight health {knightHealth}");
+Console.WriteLine($"Goblin health {goblinHealth}");
+
+//if (knightHealth <= 0)
+//{
+//    Console.ForegroundColor = ConsoleColor.Red;
+//    Console.WriteLine("Game over!");
+//    Console.ResetColor();
+//}
+//if (goblinHealth <= 0)
+//{
+//    Console.WriteLine("goblin has been slayed!");
+//}
+
+
+//if (knightHealth > 0)
+//{
+//    Console.WriteLine($"Knight health {knightHealth}");
+//}
 /* 
  * Deel 2
  * 
